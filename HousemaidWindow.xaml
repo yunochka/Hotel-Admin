@@ -1,0 +1,227 @@
+﻿<Window x:Class="HotelAdm2App.HousemaidWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HotelAdm2App"
+        mc:Ignorable="d"
+        Title="Панель горничной - Отель" 
+        Width="1280" Height="720"
+        MinWidth="1024" MinHeight="600"
+        WindowStartupLocation="CenterScreen"
+        Background="#FFF9F9F9"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+        <!-- Цветовая схема -->
+        <SolidColorBrush x:Key="PrimaryColor" Color="#FF2A5CAA"/>
+        <SolidColorBrush x:Key="SecondaryColor" Color="#FFF0F9EB"/>
+        <SolidColorBrush x:Key="AccentColor" Color="#6495ed"/>
+
+        <!-- Стиль для кнопок -->
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF4A8C45"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF3A7C35"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Стиль для карточек номеров -->
+        <Style x:Key="RoomCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#EEEEEE"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="Margin" Value="0,0,15,15"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.1"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <!-- Левая панель - список номеров (30% ширины) -->
+        <Grid Background="White" Margin="0,0,913,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="288*"/>
+                <RowDefinition Height="233*"/>
+            </Grid.RowDefinitions>
+
+
+
+
+            <!-- Заголовок -->
+            <Border Grid.Row="0" 
+        Background="{StaticResource AccentColor}" 
+        Padding="25" 
+        Height="100" Margin="367,0,-913,0" RenderTransformOrigin="0.5,0.5">
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="0.109"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Border.RenderTransform>
+                <StackPanel>
+                    <TextBlock Text="Текущая задача: №201 - Полная уборка" 
+                  Foreground="White"
+                  VerticalAlignment="Center"
+                  FontSize="18"
+                  FontWeight="SemiBold"/>
+                </StackPanel>
+            </Border>
+
+            <Grid>
+                <!-- Основной заголовок -->
+                <TextBlock Text="Текущая задача: №201 - Полная уборка" 
+                  VerticalAlignment="Center"
+                  FontSize="18"
+                  FontWeight="SemiBold"
+                  Foreground="#333333"/>
+
+                <!-- Дополнительная информация (правая часть) -->
+                <StackPanel Orientation="Horizontal" 
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center">
+                    <TextBlock Text="Приоритет:" 
+                      Foreground="#666666"
+                      Margin="0,0,5,0"/>
+                    <TextBlock Text="Высокий" 
+                      FontWeight="SemiBold"
+                      Foreground="{StaticResource PrimaryColor}"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Заголовок -->
+            <Border Grid.Row="0" 
+                    Background="{StaticResource PrimaryColor}" 
+                    Padding="25" 
+                    Height="100">
+                <StackPanel>
+                    <TextBlock Text="Горничная" 
+                              Foreground="White"
+                              FontSize="18"
+                              FontWeight="SemiBold"/>
+                    <TextBlock x:Name="txtWelcome" 
+                              Text="Доброе утро, Анна!"
+                              Foreground="#BBFFFFFF"
+                              FontSize="14"
+                              Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+            <!-- Фильтры -->
+            <Border Grid.Row="1" 
+        Background="#FAFAFA" 
+        Padding="15"
+        Margin="0,0,0,15">
+                <!-- Уменьшенный нижний отступ -->
+                <StackPanel>
+                    <TextBlock Text="Номера" 
+                  Margin="0,0,0,5" 
+                  Foreground="Black"/>
+                </StackPanel>
+            </Border>
+
+
+            <!-- Список номеров с прокруткой -->
+        </Grid>
+
+        <!-- Правая панель - текущая задача (70% ширины) -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Заголовок задачи -->
+
+            <!-- Детали задачи с прокруткой -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="367,101,0,0">
+                <Border Margin="25" Width="670">
+                    <StackPanel>
+                        <Border Style="{StaticResource RoomCardStyle}" Width="630" Height="391">
+                            <StackPanel>
+                                <TextBlock Text="Номер 201" 
+                                          FontSize="16"
+                                          FontWeight="Bold"
+                                          Foreground="{StaticResource PrimaryColor}"/>
+
+                                <StackPanel Margin="0,15,0,0">
+                                    <TextBlock Text=" "/>
+                                    <TextBlock Text=" " Margin="0,5,0,0"/>
+                                    <TextBlock Text=" " Margin="0,5,0,0"/>
+                                </StackPanel>
+
+                                <TextBlock Text="Задачи:" 
+                                          FontWeight="SemiBold"
+                                          Margin="0,15,0,0"/>
+                                <StackPanel Margin="10,5,0,0">
+                                    <CheckBox Content="Уборка помещения" IsChecked="True"/>
+                                    <CheckBox Content="Замена постельного белья" Margin="0,5,0,0"/>
+                                    <CheckBox Content="Проверка сантехники" Margin="0,5,0,0"/>
+                                </StackPanel>
+
+                                <TextBlock Text="Примечания:" 
+                                          FontWeight="SemiBold"
+                                          Margin="0,15,0,0"/>
+                                <TextBox AcceptsReturn="True" 
+                                         Height="100" 
+                                         Margin="0,5,0,0"
+                                         TextWrapping="Wrap"
+                                         BorderBrush="#DDDDDD"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </ScrollViewer>
+
+            <!-- Панель действий -->
+            <Border Grid.Row="1" 
+                    Background="White" 
+                    BorderBrush="#E1E1E1" 
+                    BorderThickness="0,1,0,0"
+                    Padding="20" Margin="367,569,0,0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+          
+
+                    <Button Content="Отметить как выполненную" 
+                            Style="{StaticResource ActionButtonStyle}"
+                            Click="CompleteTask_Click"
+                            MinWidth="220" Height="61"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
+
+                        

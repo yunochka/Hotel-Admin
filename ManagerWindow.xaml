@@ -1,0 +1,177 @@
+﻿<Window x:Class="HotelAdm2App.ManagerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HotelAdm2App"
+        mc:Ignorable="d"
+        Title="ГостиницаПанель менеджера" 
+        Width="1200" Height="700"
+        MinWidth="1024" MinHeight="600"
+        WindowStartupLocation="CenterScreen"
+        Background="#FFF5F5F5"
+        FontFamily="Segoe UI" ResizeMode="CanResize">
+
+    <Window.Resources>
+        <!-- Цветовая схема -->
+        <SolidColorBrush x:Key="PrimaryColor" Color="#FF2A5CAA"/>
+        <SolidColorBrush x:Key="SecondaryColor" Color="#FFF0F2F5"/>
+        <SolidColorBrush x:Key="AccentColor" Color="#FF5D9C59"/>
+
+        <!-- Стиль для текстовых полей -->
+        <Style x:Key="FormFieldStyle" TargetType="TextBox">
+            <Setter Property="Margin" Value="0,5,0,15"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="BorderBrush" Value="#DDDDDD"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Стиль для кнопки -->
+        <Style x:Key="RegisterButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Margin" Value="0,20,0,0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#1E4B8F"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#0F3A7A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Стиль для ComboBox -->
+        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Margin" Value="0,5,0,15"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="BorderBrush" Value="#DDDDDD"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Стиль для DatePicker -->
+        <Style x:Key="DatePickerStyle" TargetType="DatePicker">
+            <Setter Property="Margin" Value="0,5,0,15"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderBrush" Value="#DDDDDD"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="SelectedDateFormat" Value="Short"/>
+        </Style>
+        <!-- Эффект тени -->
+        <DropShadowEffect x:Key="ShadowEffect" BlurRadius="10" ShadowDepth="2" Opacity="0.1"/>
+    </Window.Resources>
+
+    <Grid>
+        <!-- Основной контейнер -->
+        <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Левая панель - быстрые действия -->
+            <Border Grid.Column="0" 
+                    Background="White" 
+                    CornerRadius="8"
+                    Padding="20"
+                    Margin="0,0,10,0"
+                    Effect="{StaticResource ShadowEffect}">
+                <StackPanel>
+                    <TextBlock Text="Быстрое заселение" 
+                              FontSize="18"
+                              Foreground="#FF2A5CAA"
+                              FontWeight="SemiBold"
+                              Margin="0,0,0,20"/>
+
+                    <!-- Форма ввода данных -->
+                    <TextBlock Text="Фамилия" Foreground="#666666" FontSize="12"/>
+                    <TextBox x:Name="txtLastName" Style="{StaticResource FormFieldStyle}"/>
+
+                    <TextBlock Text="Имя" Foreground="#666666" FontSize="12"/>
+                    <TextBox x:Name="txtFirstName" Style="{StaticResource FormFieldStyle}"/>
+
+                    <TextBlock Text="Телефон" Foreground="#666666" FontSize="12"/>
+                    <TextBox x:Name="txtPhone" Style="{StaticResource FormFieldStyle}"/>
+
+                    <TextBlock Text="Номер комнаты" Foreground="#666666" FontSize="12"/>
+                    <ComboBox x:Name="cmbRoomNumber" Style="{StaticResource ComboBoxStyle}">
+                        <ComboBoxItem Content=""/>
+                        <ComboBoxItem Content=""/>
+                        <ComboBoxItem Content=""/>
+                    </ComboBox>
+
+                    <TextBlock Text="Дата заезда" Foreground="#666666" FontSize="12"/>
+                    <DatePicker x:Name="dpCheckIn"
+                                Style="{StaticResource DatePickerStyle}"/>
+
+                    <TextBlock Text="Дата выезда" Foreground="#666666" FontSize="12"/>
+                    <DatePicker x:Name="dpCheckOut"
+                                Style="{StaticResource DatePickerStyle}"/>
+
+                    <Button Content="ЗАРЕГИСТРИРОВАТЬ"
+                            Style="{StaticResource RegisterButtonStyle}"
+                            Click="RegisterButton_Click"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Разделитель -->
+            <Border Grid.Column="1" Width="1" Background="#EEEEEE" Margin="10,0"/>
+
+            <!-- Правая панель - текущие заселения -->
+            <Border Grid.Column="2" 
+                    Background="White" 
+                    CornerRadius="8"
+                    Padding="20"
+                    Margin="10,0,0,0"
+                    Effect="{StaticResource ShadowEffect}">
+                <StackPanel>
+                    <TextBlock Text="Текущие заселения" 
+                              FontSize="18"
+                               Foreground="#FF2A5CAA"
+                              FontWeight="SemiBold"
+                              Margin="0,0,0,20"/>
+
+                    <DataGrid x:Name="CurrentRegistrationsGrid"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              HeadersVisibility="Column"
+                              BorderThickness="0"
+                              RowHeight="40" Width="700" SelectionChanged="CurrentRegistrationsGrid_SelectionChanged">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Номер" Binding="{Binding RoomNumber}" Width="80"/>
+                            <DataGridTextColumn Header="Гость" Binding="{Binding GuestName}" Width="*"/>
+                            <DataGridTextColumn Header="Заезд" Binding="{Binding CheckInDate, StringFormat=d}" Width="120"/>
+                            <DataGridTextColumn Header="Выезд" Binding="{Binding CheckOutDate, StringFormat=d}" Width="120"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
